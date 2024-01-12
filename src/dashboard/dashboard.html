@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/fontawesome.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////
+                               START SECTION 1 - THE NAVBAR SECTION  
+/////////////////////////////////////////////////////////////////////////////////////////////-->
+    <nav class="navbar navbar-expand-lg navbar-dark menu shadow fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="">
+                <img src="../images/logo.png" alt="logo image">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="position: relative; padding: 10%;">
+        <div class="container mt-5">
+            <button class="btn btn-primary mb-3 add" data-bs-toggle="modal" data-bs-target="#addModal">เพิ่ม</button>
+            <a href="../index.html">
+                <button class="btn btn-primary mb-3">หน้าหลัก</button>
+            </a>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>StudentID</th>
+                        <th>StudentName</th>
+                        <th>StudentClass</th>
+                        <th>StudentSubject</th>
+                        <th>Email</th>
+                        <th>Telephone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ฟอร์มแก้ไข</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="student">
+                        <div class="mb-3">
+                            <label for="stdid" class="form-label">stdid:</label>
+                            <input type="text" class="form-control" id="stdid" name="stdid">
+                        </div>
+                        <div class="mb-3">
+                            <label for="stdname" class="form-label">stdname:</label>
+                            <input type="text" class="form-control" id="stdname" name="stdname">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="stdclass">ระดับชั้น:</label>
+                            <select id="stdclass" name="stdclass" class="form-control">
+                                <option selected>เลือกระดับชั้น</option>
+                                <option value="ปวช.1">ปวช.1</option>
+                                <option value="ปวช.2">ปวช.2</option>
+                                <option value="ปวช.3">ปวช.3</option>
+                                <option value="ปวส.1">ปวส.1</option>
+                                <option value="ปวส.2">ปวส.2</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addStdsubject" class="form-label">Student Subject:</label>
+                            <select id="addStdsubject" name="addStdsubject" class="form-control">
+                                <option selected>Choose Subject</option>
+                                <option value="เทคโนโลยีสารสนเทศ">เทคโนโลยีสารสนเทศ</option>
+                                <option value="อิเล็กทรอนิกส์">อิเล็กทรอนิกส์</option>
+                                <option value="บัญชี">บัญชี</option>
+                                <option value="คอมธุรกิจ">คอมธุรกิจ</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">email:</label>
+                            <input type="text" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="telephone" class="form-label">telephone:</label>
+                            <input type="text" class="form-control" id="telephone" name="telephone">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">เพิ่มรายการ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="mb-3">
+                            <label for="addStdid" class="form-label">Student ID:</label>
+                            <input type="text" class="form-control" id="addStdid" name="addStdid">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addStdname" class="form-label">Student Name:</label>
+                            <input type="text" class="form-control" id="addStdname" name="addStdname">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addStdclass" class="form-label">Student Class:</label>
+                            <select id="addStdclass" name="addStdclass" class="form-control">
+                                <option selected>Choose Class</option>
+                                <option value="ปวช.1">ปวช.1</option>
+                                <option value="ปวช.2">ปวช.2</option>
+                                <option value="ปวช.3">ปวช.3</option>
+                                <option value="ปวส.1">ปวส.1</option>
+                                <option value="ปวส.2">ปวส.2</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addStdsubject" class="form-label">Student Class:</label>
+                            <select id="addStdsubject" name="addStdsubject" class="form-control">
+                                <option selected>Choose Subject</option>
+                                <option value="เทคโนโลยีสารสนเทศ">เทคโนโลยีสารสนเทศ</option>
+                                <option value="อิเล็กทรอนิกส์">อิเล็กทรอนิกส์</option>
+                                <option value="บัญชี">บัญชี</option>
+                                <option value="คอมธุรกิจ">คอมธุรกิจ</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEmail" class="form-label">Email:</label>
+                            <input type="text" class="form-control" id="addEmail" name="addEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addTelephone" class="form-label">Telephone:</label>
+                            <input type="text" class="form-control" id="addTelephone" name="addTelephone">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "api_fetch_all.php",
+                    data: {},
+                    dataType: "json",
+                    success: function (data) {
+                        console.log("Data fetched:", data);
+                        var message = '';
+                        if (data.status == false) {
+                            message += '<tr>';
+                            message += '<td colspan="6" align="center">' + data.msg + '</td>'
+                            message += '</tr>';
+                        } else {
+                            $.each(data, function (i, k) {
+                                message += '<tr>';
+                                message += '<td>' + k.stdid + '</td>'
+                                message += '<td>' + k.stdname + '</td>'
+                                message += '<td>' + k.stdclass + '</td>'
+                                message += '<td>' + k.stdsubject + '</td>'
+                                message += '<td>' + k.email + '</td>'
+                                message += '<td>' + k.telephone + '</td>'
+                                message += '<td><button class="btn btn-success edit" data-stdid="' + k.stdid + '">Edit</button><button class="btn btn-danger del" data-stdid="' + k.stdid + '">Del</button></td>'
+                                message += '</tr>';
+                            });
+                        }
+
+                        $('table tbody').html(message);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Error fetching data:", textStatus, errorThrown);
+                    }
+                });
+            });
+
+            $("#student").submit(function (event) {
+                var formData = {
+                    stdid: $("#stdid").val(),
+                    stdname: $("#stdname").val(),
+                    stdclass: $("#stdclass").val(),
+                    stdsubject: $("#addStdsubject").val(),
+                    email: $("#email").val(),
+                    telephone: $("#telephone").val(),
+                };
+
+                console.log("Form data:", formData);
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost/jsonwork/inclassroomwork/src/dashboard/api_insert.php",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log("Update success:", data);
+                        if (data.status == false) {
+                            alert(data.msg);
+                        } else {
+                            alert(data.msg);
+                            window.location.href = "dashboard.html";
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Update error:", textStatus, errorThrown);
+                        console.log("Response Text:", jqXHR.responseText);
+                    }
+                });
+
+
+                event.preventDefault();
+            });
+
+            $("body").on("click", ".edit", function () {
+                let stdid = $(this).attr("data-stdid");
+                let sid = {
+                    stdid: stdid
+                };
+
+                console.log("Edit student ID:", stdid);
+
+                $.ajax({
+                    type: "POST",
+                    url: "api_fetch_single.php",
+                    data: JSON.stringify(sid),
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log("Fetch single success:", data);
+                        if (data.status == false) {
+                            alert(data.msg);
+                        } else {
+                            $.each(data, function (i, k) {
+                                $('#stdid').val(k.stdid);
+                                $('#stdname').val(k.stdname);
+                                $('#stdclass').val(k.stdclass);
+                                $('#addStdsubject').val(k.stdsubject);
+                                $('#email').val(k.email);
+                                $('#telephone').val(k.telephone);
+                            });
+                            $("#editModal").modal('show');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Fetch single error:", textStatus, errorThrown);
+                    }
+                });
+
+                event.preventDefault();
+            });
+
+            $("body").on("click", ".del", function () {
+                let stdid = $(this).attr("data-stdid");
+                let sid = {
+                    stdid: stdid
+                };
+
+                console.log("Delete student ID:", stdid);
+
+                $.ajax({
+                    type: "POST",
+                    url: "api_delete.php",
+                    data: JSON.stringify(sid),
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log("Delete success:", data);
+                        alert(data.msg);
+                        location.reload();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Delete error:", textStatus, errorThrown);
+                    }
+                });
+
+                event.preventDefault();
+            });
+
+            $("#addStudentForm").submit(function (event) {
+                var addFormData = {
+                    stdid: $("#addStdid").val(),
+                    stdname: $("#addStdname").val(),
+                    stdclass: $("#addStdclass").val(),
+                    stdsubject: $("#addStdsubject").val(),
+                    email: $("#addEmail").val(),
+                    telephone: $("#addTelephone").val(),
+                };
+
+                console.log("Add form data:", addFormData);
+
+                $.ajax({
+                    type: "POST",
+                    url: "api_insert.php",
+                    data: JSON.stringify(addFormData),
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log("Insert success:", data);
+                        if (data.status == false) {
+                            alert(data.msg);
+                        } else {
+                            alert(data.msg);
+                            window.location.href = "dashboard.html";
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Insert error:", textStatus, errorThrown);
+                    }
+                });
+
+                event.preventDefault();
+            });
+        </script>
+        <script src="../assets/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>
